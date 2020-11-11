@@ -20,6 +20,7 @@ export default class Label extends PureComponent {
     fontSize: PropTypes.number.isRequired,
     activeFontSize: PropTypes.number.isRequired,
 
+    labelColor: PropTypes.string.isRequired,
     baseColor: PropTypes.string.isRequired,
     tintColor: PropTypes.string.isRequired,
     errorColor: PropTypes.string.isRequired,
@@ -59,6 +60,7 @@ export default class Label extends PureComponent {
       errorColor,
       baseColor,
       tintColor,
+      labelColor,
       style,
       focusAnimation,
       labelAnimation,
@@ -69,13 +71,15 @@ export default class Label extends PureComponent {
       return null;
     }
 
+    const finaColor = labelColor !== '' ? labelColor : tintColor;
+
     let color = disabled?
       baseColor:
       restricted?
         errorColor:
         focusAnimation.interpolate({
           inputRange: [-1, 0, 1],
-          outputRange: [errorColor, baseColor, tintColor],
+          outputRange: [errorColor, baseColor, finaColor],
         });
 
     let textStyle = {
